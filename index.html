@@ -6,11 +6,7 @@
 <title>Gửi yêu thương 💌</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background: #f7f4f0; min-height: 100vh;
-    display: flex; flex-direction: column; align-items: center; padding-bottom: 48px;
-  }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f7f4f0; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding-bottom: 48px; }
   .wrapper { width: 100%; max-width: 420px; padding: 0 16px; }
   header { text-align: center; padding: 40px 0 24px; }
   header .ico { font-size: 40px; display: block; margin-bottom: 10px; }
@@ -20,62 +16,47 @@
   .label { font-size: 11px; font-weight: 600; color: #b5a89e; letter-spacing: 0.7px; text-transform: uppercase; margin-bottom: 12px; }
   .sticker-scroll { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
   .sticker-scroll::-webkit-scrollbar { display: none; }
-  .sticker-btn {
-    flex-shrink: 0; width: 50px; height: 50px; border-radius: 14px;
-    background: #f7f4f0; border: 1px solid #ede8e3; font-size: 24px;
-    cursor: pointer; display: flex; align-items: center; justify-content: center;
-    transition: transform 0.15s, border-color 0.15s;
-  }
+  .sticker-btn { flex-shrink: 0; width: 50px; height: 50px; border-radius: 14px; background: #f7f4f0; border: 1px solid #ede8e3; font-size: 24px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.15s, border-color 0.15s; }
   .sticker-btn.selected { border-color: #b5a89e; background: #f0ebe5; transform: scale(1.08); }
   .tab-row { display: flex; gap: 6px; margin-bottom: 12px; }
-  .tab {
-    flex: 1; padding: 8px; border-radius: 10px; border: 1px solid #ede8e3;
-    background: #f7f4f0; font-size: 13px; color: #9e8e84; cursor: pointer; text-align: center; transition: all 0.15s;
-  }
+  .tab { flex: 1; padding: 8px; border-radius: 10px; border: 1px solid #ede8e3; background: #f7f4f0; font-size: 13px; color: #9e8e84; cursor: pointer; text-align: center; transition: all 0.15s; }
   .tab.active { background: #fff; border-color: #b5a89e; color: #3d3530; font-weight: 500; }
   .msg-list { display: flex; flex-direction: column; gap: 7px; }
-  .msg-chip {
-    padding: 10px 13px; border-radius: 12px; border: 1px solid #ede8e3;
-    background: #f7f4f0; font-size: 13.5px; color: #5c4f47; cursor: pointer; text-align: left; line-height: 1.45; transition: all 0.15s;
-  }
+  .msg-chip { padding: 10px 13px; border-radius: 12px; border: 1px solid #ede8e3; background: #f7f4f0; font-size: 13.5px; color: #5c4f47; cursor: pointer; text-align: left; line-height: 1.45; transition: all 0.15s; }
   .msg-chip.selected { background: #f0ebe5; border-color: #b5a89e; color: #3d3530; }
   .custom-area { display: none; }
   .custom-area.show { display: block; }
-  textarea {
-    width: 100%; padding: 11px 13px; border-radius: 12px; border: 1px solid #ede8e3;
-    background: #f7f4f0; font-size: 14px; line-height: 1.6; font-family: inherit;
-    color: #3d3530; resize: none; outline: none; transition: border-color 0.2s;
-  }
+  textarea { width: 100%; padding: 11px 13px; border-radius: 12px; border: 1px solid #ede8e3; background: #f7f4f0; font-size: 14px; line-height: 1.6; font-family: inherit; color: #3d3530; resize: none; outline: none; transition: border-color 0.2s; }
   textarea:focus { border-color: #b5a89e; background: #fff; }
   textarea::placeholder { color: #c8bfb8; }
   .color-row { display: flex; gap: 10px; }
   .cdot { width: 28px; height: 28px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: transform 0.15s; }
   .cdot.selected { border-color: #5c4f47; transform: scale(1.15); }
-  .preview-box {
-    border-radius: 16px; padding: 28px 20px; min-height: 110px; text-align: center;
-    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
-    transition: background 0.4s; background: #f0ebe5;
-  }
+  .preview-box { border-radius: 16px; padding: 28px 20px; min-height: 110px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; transition: background 0.4s; background: #f0ebe5; }
   .preview-sticker { font-size: 52px; line-height: 1; }
   .preview-msg { font-size: 15px; color: #5c4f47; line-height: 1.6; font-style: italic; }
   .preview-hint { font-size: 13px; color: #c8bfb8; }
-  .send-btn {
-    width: 100%; padding: 15px; border-radius: 16px; background: #3d3530; color: #f7f4f0;
-    border: none; font-size: 16px; font-weight: 600; cursor: pointer;
-    transition: opacity 0.15s, transform 0.15s; margin-bottom: 12px;
-  }
+  .send-btn { width: 100%; padding: 15px; border-radius: 16px; background: #3d3530; color: #f7f4f0; border: none; font-size: 16px; font-weight: 600; cursor: pointer; transition: opacity 0.15s, transform 0.15s; margin-bottom: 12px; }
   .send-btn:active { opacity: 0.85; transform: scale(0.98); }
   .send-btn:disabled { background: #b5a89e; cursor: not-allowed; }
-  .toast {
-    position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(20px);
-    background: #3d3530; color: #f7f4f0; padding: 12px 24px; border-radius: 40px;
-    font-size: 14px; opacity: 0; transition: all 0.3s; pointer-events: none; white-space: nowrap; z-index: 99;
-  }
-  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* reply inbox */
+  .inbox-card { background: #fff; border-radius: 20px; border: 1px solid #ede8e3; padding: 18px; margin-bottom: 12px; }
+  .inbox-empty { font-size: 13px; color: #c8bfb8; text-align: center; padding: 8px 0; }
+  .inbox-item { display: flex; gap: 10px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid #f0ebe5; }
+  .inbox-item:last-child { border-bottom: none; }
+  .inbox-sticker { font-size: 22px; flex-shrink: 0; }
+  .inbox-content { flex: 1; min-width: 0; }
+  .inbox-msg { font-size: 13px; color: #9e8e84; font-style: italic; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .inbox-reply { font-size: 14px; color: #3d3530; margin-top: 4px; font-weight: 500; }
+  .inbox-label { font-size: 11px; color: #b5a89e; margin-bottom: 2px; }
+
   .view-link-card { background: #fff; border-radius: 20px; border: 1px solid #ede8e3; padding: 18px; margin-bottom: 12px; }
-  .view-link-url { font-size: 14px; color: #3d3530; font-weight: 500; word-break: break-all; background: #f7f4f0; border-radius: 10px; padding: 10px 12px; margin: 8px 0 10px; }
+  .view-link-url { font-size: 13px; color: #3d3530; word-break: break-all; background: #f7f4f0; border-radius: 10px; padding: 10px 12px; margin: 8px 0 10px; }
   .copy-btn { width: 100%; padding: 11px; border-radius: 12px; border: 1px solid #b5a89e; background: #fff; color: #3d3530; font-size: 14px; font-weight: 500; cursor: pointer; transition: background 0.15s; }
   .copy-btn:active { background: #f0ebe5; }
+  .toast { position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(20px); background: #3d3530; color: #f7f4f0; padding: 10px 20px; border-radius: 40px; font-size: 13px; opacity: 0; transition: all 0.3s; pointer-events: none; white-space: nowrap; z-index: 99; }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 </style>
 </head>
 <body>
@@ -112,12 +93,12 @@
     </div>
     <div id="preset-sec">
       <div class="msg-list">
-        <button class="msg-chip" onclick="pickM(this)">Chị oii em đang nghĩ đến chị đó 🥺</button>
-        <button class="msg-chip" onclick="pickM(this)">Ăn cơm liền cho toiii🍱</button>
+        <button class="msg-chip" onclick="pickM(this)">Chị ơi em đang nghĩ đến chị đó 🥺</button>
+        <button class="msg-chip" onclick="pickM(this)">Hôm nay chị có vui không? Nhớ ăn cơm đúng giờ nha 🍱</button>
         <button class="msg-chip" onclick="pickM(this)">Chị là phần dễ thương nhất trong ngày của em 🌸</button>
         <button class="msg-chip" onclick="pickM(this)">Em yêu chị nhiều lắm, không đếm được đâu nha 💕</button>
         <button class="msg-chip" onclick="pickM(this)">Gửi chị một cái ôm siêu to khổng lồ 🫂</button>
-        <button class="msg-chip" onclick="pickM(this)">Em nhớ chị lắm ròi 🌙</button>
+        <button class="msg-chip" onclick="pickM(this)">Em nhớ chị lắm rồi đó, về mau nha chị 🌙</button>
         <button class="msg-chip" onclick="pickM(this)">Có chị là ngày nào của em cũng đẹp hết 🌿</button>
       </div>
     </div>
@@ -147,6 +128,13 @@
   </div>
 
   <button class="send-btn" id="sendBtn" onclick="sendMsg()">Gửi cho chị 🌿</button>
+
+  <!-- Inbox reply từ chị -->
+  <div class="inbox-card">
+    <div class="label">Reply từ chị 💬</div>
+    <div id="inboxList"><div class="inbox-empty">Chưa có reply nào từ chị...</div></div>
+    <button class="copy-btn" style="margin-top:10px" onclick="loadReplies()">🔄 Tải lại</button>
+  </div>
 
   <div class="view-link-card">
     <div class="label">Link cho chị xem</div>
@@ -190,24 +178,34 @@
     if(!S&&!msg){ showToast('Em ơi, chọn sticker hoặc viết lời nhắn trước nhé 🥺'); return; }
     const btn=document.getElementById('sendBtn');
     btn.disabled=true; btn.textContent='Đang gửi...';
-    try {
-      await fetch(`${SUPA_URL}/rest/v1/messages`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'apikey': SUPA_KEY,
-          'Authorization': `Bearer ${SUPA_KEY}`,
-          'Prefer': 'return=minimal'
-        },
-        body: JSON.stringify({ sticker: S, message: msg, bg: BG })
-      });
-      showToast('Đã gửi cho chị rồi 🌿💕');
-      btn.textContent='Gửi thêm cho chị 🌿';
-    } catch(e) {
-      showToast('Ôi có lỗi rồi, thử lại nha 😢');
-      btn.textContent='Gửi cho chị 🌿';
-    }
+    await fetch(`${SUPA_URL}/rest/v1/messages`, {
+      method: 'POST',
+      headers: { 'Content-Type':'application/json','apikey':SUPA_KEY,'Authorization':`Bearer ${SUPA_KEY}`,'Prefer':'return=minimal' },
+      body: JSON.stringify({ sticker:S, message:msg, bg:BG })
+    });
+    showToast('Đã gửi cho chị rồi 🌿💕');
+    btn.textContent='Gửi thêm cho chị 🌿';
     btn.disabled=false;
+    loadReplies();
+  }
+
+  async function loadReplies(){
+    const res = await fetch(`${SUPA_URL}/rest/v1/messages?order=id.desc&limit=10`, {
+      headers:{'apikey':SUPA_KEY,'Authorization':`Bearer ${SUPA_KEY}`}
+    });
+    const data = await res.json();
+    const list = document.getElementById('inboxList');
+    const withReply = data.filter(m => m.reply);
+    if (!withReply.length) { list.innerHTML='<div class="inbox-empty">Chị chưa reply gì cả... 🌿</div>'; return; }
+    list.innerHTML = withReply.map(m => `
+      <div class="inbox-item">
+        <div class="inbox-sticker">${m.sticker||'🌿'}</div>
+        <div class="inbox-content">
+          <div class="inbox-msg">${m.message||''}</div>
+          <div class="inbox-label">Chị reply:</div>
+          <div class="inbox-reply">💬 ${m.reply}</div>
+        </div>
+      </div>`).join('');
   }
 
   function showToast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),3000); }
@@ -217,6 +215,11 @@
     if(navigator.clipboard) navigator.clipboard.writeText(url).then(()=>showToast('Đã sao chép! Gửi link này cho chị nhé 🌸'));
     else{ const t=document.createElement('textarea'); t.value=url; document.body.appendChild(t); t.select(); document.execCommand('copy'); document.body.removeChild(t); showToast('Đã sao chép! Gửi link này cho chị nhé 🌸'); }
   }
+
+  // Load replies khi mở trang
+  loadReplies();
+  // Tự động check reply mỗi 15s
+  setInterval(loadReplies, 15000);
 </script>
 </body>
 </html>
