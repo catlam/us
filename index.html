@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Gửi yêu thương 💌</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #f7f4f0; min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; padding-bottom: 48px;
+  }
+  .wrapper { width: 100%; max-width: 420px; padding: 0 16px; }
+  header { text-align: center; padding: 40px 0 24px; }
+  header .ico { font-size: 40px; display: block; margin-bottom: 10px; }
+  header h1 { font-size: 24px; font-weight: 600; color: #3d3530; letter-spacing: -0.4px; }
+  header p  { font-size: 13px; color: #9e8e84; margin-top: 4px; }
+  .card { background: #fff; border-radius: 20px; border: 1px solid #ede8e3; padding: 18px; margin-bottom: 12px; }
+  .label { font-size: 11px; font-weight: 600; color: #b5a89e; letter-spacing: 0.7px; text-transform: uppercase; margin-bottom: 12px; }
+  .sticker-scroll { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
+  .sticker-scroll::-webkit-scrollbar { display: none; }
+  .sticker-btn {
+    flex-shrink: 0; width: 50px; height: 50px; border-radius: 14px;
+    background: #f7f4f0; border: 1px solid #ede8e3; font-size: 24px;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: transform 0.15s, border-color 0.15s;
+  }
+  .sticker-btn.selected { border-color: #b5a89e; background: #f0ebe5; transform: scale(1.08); }
+  .tab-row { display: flex; gap: 6px; margin-bottom: 12px; }
+  .tab {
+    flex: 1; padding: 8px; border-radius: 10px; border: 1px solid #ede8e3;
+    background: #f7f4f0; font-size: 13px; color: #9e8e84; cursor: pointer; text-align: center; transition: all 0.15s;
+  }
+  .tab.active { background: #fff; border-color: #b5a89e; color: #3d3530; font-weight: 500; }
+  .msg-list { display: flex; flex-direction: column; gap: 7px; }
+  .msg-chip {
+    padding: 10px 13px; border-radius: 12px; border: 1px solid #ede8e3;
+    background: #f7f4f0; font-size: 13.5px; color: #5c4f47; cursor: pointer; text-align: left; line-height: 1.45; transition: all 0.15s;
+  }
+  .msg-chip.selected { background: #f0ebe5; border-color: #b5a89e; color: #3d3530; }
+  .custom-area { display: none; }
+  .custom-area.show { display: block; }
+  textarea {
+    width: 100%; padding: 11px 13px; border-radius: 12px; border: 1px solid #ede8e3;
+    background: #f7f4f0; font-size: 14px; line-height: 1.6; font-family: inherit;
+    color: #3d3530; resize: none; outline: none; transition: border-color 0.2s;
+  }
+  textarea:focus { border-color: #b5a89e; background: #fff; }
+  textarea::placeholder { color: #c8bfb8; }
+  .color-row { display: flex; gap: 10px; }
+  .cdot { width: 28px; height: 28px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: transform 0.15s; }
+  .cdot.selected { border-color: #5c4f47; transform: scale(1.15); }
+  .preview-box {
+    border-radius: 16px; padding: 28px 20px; min-height: 110px; text-align: center;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+    transition: background 0.4s; background: #f0ebe5;
+  }
+  .preview-sticker { font-size: 52px; line-height: 1; }
+  .preview-msg { font-size: 15px; color: #5c4f47; line-height: 1.6; font-style: italic; }
+  .preview-hint { font-size: 13px; color: #c8bfb8; }
+  .send-btn {
+    width: 100%; padding: 15px; border-radius: 16px; background: #3d3530; color: #f7f4f0;
+    border: none; font-size: 16px; font-weight: 600; cursor: pointer;
+    transition: opacity 0.15s, transform 0.15s; margin-bottom: 12px;
+  }
+  .send-btn:active { opacity: 0.85; transform: scale(0.98); }
+  .send-btn:disabled { background: #b5a89e; cursor: not-allowed; }
+  .toast {
+    position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(20px);
+    background: #3d3530; color: #f7f4f0; padding: 12px 24px; border-radius: 40px;
+    font-size: 14px; opacity: 0; transition: all 0.3s; pointer-events: none; white-space: nowrap; z-index: 99;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .view-link-card { background: #fff; border-radius: 20px; border: 1px solid #ede8e3; padding: 18px; margin-bottom: 12px; }
+  .view-link-url { font-size: 14px; color: #3d3530; font-weight: 500; word-break: break-all; background: #f7f4f0; border-radius: 10px; padding: 10px 12px; margin: 8px 0 10px; }
+  .copy-btn { width: 100%; padding: 11px; border-radius: 12px; border: 1px solid #b5a89e; background: #fff; color: #3d3530; font-size: 14px; font-weight: 500; cursor: pointer; transition: background 0.15s; }
+  .copy-btn:active { background: #f0ebe5; }
+</style>
+</head>
+<body>
+<div class="wrapper">
+  <header>
+    <span class="ico">🌿</span>
+    <h1>Gửi yêu thương</h1>
+    <p>Em tạo thiệp nhỏ gửi đến chị nhé</p>
+  </header>
+
+  <div class="card">
+    <div class="label">Chọn sticker</div>
+    <div class="sticker-scroll">
+      <button class="sticker-btn" onclick="pickS(this,'🌸')">🌸</button>
+      <button class="sticker-btn" onclick="pickS(this,'🌿')">🌿</button>
+      <button class="sticker-btn" onclick="pickS(this,'🧸')">🧸</button>
+      <button class="sticker-btn" onclick="pickS(this,'🌷')">🌷</button>
+      <button class="sticker-btn" onclick="pickS(this,'🍃')">🍃</button>
+      <button class="sticker-btn" onclick="pickS(this,'🦋')">🦋</button>
+      <button class="sticker-btn" onclick="pickS(this,'🌼')">🌼</button>
+      <button class="sticker-btn" onclick="pickS(this,'🌙')">🌙</button>
+      <button class="sticker-btn" onclick="pickS(this,'⭐')">⭐</button>
+      <button class="sticker-btn" onclick="pickS(this,'🍵')">🍵</button>
+      <button class="sticker-btn" onclick="pickS(this,'🎀')">🎀</button>
+      <button class="sticker-btn" onclick="pickS(this,'☁️')">☁️</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="label">Lời nhắn</div>
+    <div class="tab-row">
+      <button class="tab active" onclick="switchTab('preset',this)">Câu có sẵn</button>
+      <button class="tab" onclick="switchTab('custom',this)">Em tự viết</button>
+    </div>
+    <div id="preset-sec">
+      <div class="msg-list">
+        <button class="msg-chip" onclick="pickM(this)">Chị oii em đang nghĩ đến chị đó 🥺</button>
+        <button class="msg-chip" onclick="pickM(this)">Ăn cơm liền cho toiii🍱</button>
+        <button class="msg-chip" onclick="pickM(this)">Chị là phần dễ thương nhất trong ngày của em 🌸</button>
+        <button class="msg-chip" onclick="pickM(this)">Em yêu chị nhiều lắm, không đếm được đâu nha 💕</button>
+        <button class="msg-chip" onclick="pickM(this)">Gửi chị một cái ôm siêu to khổng lồ 🫂</button>
+        <button class="msg-chip" onclick="pickM(this)">Em nhớ chị lắm ròi 🌙</button>
+        <button class="msg-chip" onclick="pickM(this)">Có chị là ngày nào của em cũng đẹp hết 🌿</button>
+      </div>
+    </div>
+    <div id="custom-sec" class="custom-area">
+      <textarea rows="4" id="customTxt" placeholder="Em muốn nói gì với chị nào..." oninput="syncC()"></textarea>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="label">Màu nền thiệp</div>
+    <div class="color-row">
+      <div class="cdot selected" style="background:#f0ebe5" data-bg="#f0ebe5" onclick="pickBg(this)"></div>
+      <div class="cdot" style="background:#e8f0e8" data-bg="#e8f0e8" onclick="pickBg(this)"></div>
+      <div class="cdot" style="background:#e8ecf0" data-bg="#e8ecf0" onclick="pickBg(this)"></div>
+      <div class="cdot" style="background:#f0ede8" data-bg="#f0ede8" onclick="pickBg(this)"></div>
+      <div class="cdot" style="background:#eee8f0" data-bg="#eee8f0" onclick="pickBg(this)"></div>
+      <div class="cdot" style="background:#f0f0e8" data-bg="#f0f0e8" onclick="pickBg(this)"></div>
+      <div class="cdot" style="background:#e8f0ee" data-bg="#e8f0ee" onclick="pickBg(this)"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="label">Xem trước</div>
+    <div class="preview-box" id="previewBox">
+      <div class="preview-hint">Chọn sticker và lời nhắn để xem trước ✨</div>
+    </div>
+  </div>
+
+  <button class="send-btn" id="sendBtn" onclick="sendMsg()">Gửi cho chị 🌿</button>
+
+  <div class="view-link-card">
+    <div class="label">Link cho chị xem</div>
+    <div class="view-link-url">https://catlam.github.io/us/view.html</div>
+    <button class="copy-btn" onclick="copyViewLink()">Sao chép link gửi chị 📋</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const SUPA_URL = 'https://qhouzovahpqafdwnfqas.supabase.co';
+  const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFob3V6b3ZhaHBxYWZkd25mcWFzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE2Njg0NTgsImV4cCI6MjA5NzI0NDQ1OH0.kouel9JRVgm-vyWB-lBJW7UQBjbVjLSGyjBHgpib-0E';
+
+  let S='', M='', BG='#f0ebe5', tab='preset';
+
+  function pickS(el,e){ document.querySelectorAll('.sticker-btn').forEach(b=>b.classList.remove('selected')); el.classList.add('selected'); S=e; render(); }
+  function pickM(el){ document.querySelectorAll('.msg-chip').forEach(b=>b.classList.remove('selected')); el.classList.add('selected'); M=el.textContent; render(); }
+  function syncC(){ M=document.getElementById('customTxt').value; render(); }
+  function pickBg(el){ document.querySelectorAll('.cdot').forEach(d=>d.classList.remove('selected')); el.classList.add('selected'); BG=el.dataset.bg; document.getElementById('previewBox').style.background=BG; }
+
+  function switchTab(t,el){
+    tab=t;
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active')); el.classList.add('active');
+    document.getElementById('preset-sec').style.display=t==='preset'?'block':'none';
+    const ca=document.getElementById('custom-sec');
+    t==='custom'?ca.classList.add('show'):ca.classList.remove('show');
+    if(t==='preset'){ M=''; document.querySelectorAll('.msg-chip').forEach(b=>b.classList.remove('selected')); }
+    else M=document.getElementById('customTxt').value;
+    render();
+  }
+
+  function render(){
+    const box=document.getElementById('previewBox');
+    if(!S&&!M){ box.innerHTML='<div class="preview-hint">Chọn sticker và lời nhắn để xem trước ✨</div>'; return; }
+    box.innerHTML=(S?`<div class="preview-sticker">${S}</div>`:'')+( M?`<div class="preview-msg">${M}</div>`:'');
+  }
+
+  async function sendMsg(){
+    const msg=tab==='custom'?document.getElementById('customTxt').value:M;
+    if(!S&&!msg){ showToast('Em ơi, chọn sticker hoặc viết lời nhắn trước nhé 🥺'); return; }
+    const btn=document.getElementById('sendBtn');
+    btn.disabled=true; btn.textContent='Đang gửi...';
+    try {
+      await fetch(`${SUPA_URL}/rest/v1/messages`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPA_KEY,
+          'Authorization': `Bearer ${SUPA_KEY}`,
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify({ sticker: S, message: msg, bg: BG })
+      });
+      showToast('Đã gửi cho chị rồi 🌿💕');
+      btn.textContent='Gửi thêm cho chị 🌿';
+    } catch(e) {
+      showToast('Ôi có lỗi rồi, thử lại nha 😢');
+      btn.textContent='Gửi cho chị 🌿';
+    }
+    btn.disabled=false;
+  }
+
+  function showToast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),3000); }
+
+  function copyViewLink(){
+    const url='https://catlam.github.io/us/view.html';
+    if(navigator.clipboard) navigator.clipboard.writeText(url).then(()=>showToast('Đã sao chép! Gửi link này cho chị nhé 🌸'));
+    else{ const t=document.createElement('textarea'); t.value=url; document.body.appendChild(t); t.select(); document.execCommand('copy'); document.body.removeChild(t); showToast('Đã sao chép! Gửi link này cho chị nhé 🌸'); }
+  }
+</script>
+</body>
+</html>
